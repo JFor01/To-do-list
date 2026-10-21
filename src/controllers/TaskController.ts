@@ -5,20 +5,14 @@ import type {NextFunction, Response, Request} from "express";
 
 export class TaskController {
     private taskService : TaskService;
-    private app : Express;
-    private path = "http://localhost:3000/";
 
     constructor(taskService : TaskService, app : Express) {
         this.taskService = taskService;
-        this.app = app;
     }
 
-     public async saveTask (task : Task){
-        this.app.post(this.path ,(req :Request, res : Response) =>{
-            console.log(req.body);
-
-        })
-        return this.taskService.saveTask(task);
+     saveTask = async  (req : Request, res :Response) =>{
+        const task  =  await this.taskService.saveTask(req.body);
+        res.status(201).json(task);
     }
 
 }
