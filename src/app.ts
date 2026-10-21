@@ -27,6 +27,7 @@ const globalService : TaskService = new TaskService(globalRepository);
 const globalTaskController : TaskController = new TaskController(globalService,app);
 
 app.post("/tasks", globalTaskController.saveTask);
+app.get("/tasks", globalTaskController.getTasks);
 
 app.use((err :any, req :Request, res :Response, next : NextFunction) => {
     console.error(err);

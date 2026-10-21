@@ -10,8 +10,14 @@ export class TaskController {
         this.taskService = taskService;
     }
 
+    getTasks = async (req : Request, res : Response) =>{
+        const tasks =  await this.taskService.getTasks();
+        res.status(201).json(tasks);
+    }
+
      saveTask = async  (req : Request, res :Response) =>{
         const task  =  await this.taskService.saveTask(req.body);
+
         res.status(201).json(task);
     }
 

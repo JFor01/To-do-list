@@ -9,6 +9,11 @@ export class TaskService{
         this.taskRepository = taskRepository;
     }
 
+    public async getTasks(){
+         return await this.taskRepository.getAllTasks();
+
+    }
+
     public async saveTask (task :Task){
         return await this.taskRepository.saveTask(task);
     }
