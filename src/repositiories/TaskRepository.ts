@@ -7,12 +7,12 @@ export class TaskRepository {
      private insertQuery :string = "INSERT into task(description, done) values ($1,$2) returning id";
      private getByIdQuery : string = "SELECT * from task where id= $1";
      private getQuery : string = "SELECT * from task";
-
+     private deleteQuery : string = "DELETE from task where id = $1"
     constructor(pool : Pool) {
         this.pool = pool;
     }
 
-    public async getTasksById(id : number){
+    private async getTasksById(id : number){
         const result = await this.pool.query<Task>(this.getByIdQuery, [id]);
         return result.rows[0];
     }
@@ -28,6 +28,11 @@ export class TaskRepository {
         const queryResult = await this.pool.query<Task>(this.getQuery)
         return queryResult.rows;
 
+    }
+
+    public async deleteTask(id : number){
+         const queryResult = await this.pool.query(this.deleteQuery,[id]);
+         console.log(queryResult);
     }
 
 

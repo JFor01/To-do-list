@@ -21,4 +21,16 @@ export class TaskController {
         res.status(201).json(task);
     }
 
+    deleteTask = async (req : Request, res : Response)=>{
+        let id = Number(req.params.id);
+        console.log(id);
+        if(!Number.isInteger(id) || id <= 0 ){
+            res.status(400).json({error : "Id must be a positive integer"});
+        }
+        const tasks = await this.taskService.deleteTask(id);
+        res.status(200).json(tasks);
+    }
+
+
+
 }

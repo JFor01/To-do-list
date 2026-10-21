@@ -16,9 +16,7 @@ const globalPool : Pool = new Pool({
     }
 );
 
-app.listen(3000, () => {
-    console.log(`Example app listening on port 3000`)
-})
+
 
 app.use(express.json());
 
@@ -28,7 +26,13 @@ const globalTaskController : TaskController = new TaskController(globalService,a
 
 app.post("/tasks", globalTaskController.saveTask);
 app.get("/tasks", globalTaskController.getTasks);
+app.delete("/tasks/:id", globalTaskController.deleteTask);
 
 app.use((err :any, req :Request, res :Response, next : NextFunction) => {
     console.error(err);
+})
+
+
+app.listen(3000, () => {
+    console.log(`Example app listening on port 3000`)
 })

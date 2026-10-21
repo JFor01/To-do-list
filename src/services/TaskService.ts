@@ -18,4 +18,8 @@ export class TaskService{
         return await this.taskRepository.saveTask(task);
     }
 
+    public async deleteTask(id : number){
+        await this.taskRepository.deleteTask(id);
+    }
+
 }
