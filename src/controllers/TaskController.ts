@@ -31,6 +31,18 @@ export class TaskController {
         res.status(200).json(tasks);
     }
 
+    patchTaskDone = async (req : Request, res : Response)=>{
+        const id = Number(req.params.id);
+        if(!Number.isInteger(id) || id <= 0){
+            res.status(400).json({error : "Id must be a positive integer"});
+        }
+        if(typeof req.body.done !== "boolean"){
+            res.status(400).json({error : "Done must be boolean"});
+        }
+        const task = await  this.taskService.patchTaskDone(id,req.body.done );
+        res.status(200).json(task);
+    }
+
 
 
 }

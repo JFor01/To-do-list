@@ -19,7 +19,13 @@ export class TaskService{
     }
 
     public async deleteTask(id : number){
-        await this.taskRepository.deleteTask(id);
+        return await this.taskRepository.deleteTask(id);
     }
+
+    public async patchTaskDone(id : number, done : boolean){
+        return await this.taskRepository.patchTaskDone(id, done);
+    }
+
+
 
 }

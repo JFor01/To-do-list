@@ -8,6 +8,7 @@ export class TaskRepository {
      private getByIdQuery : string = "SELECT * from task where id= $1";
      private getQuery : string = "SELECT * from task";
      private deleteQuery : string = "DELETE from task where id = $1"
+    private patchQuery : string = "UPDATE task SET done=$1 WHERE id = $2"
     constructor(pool : Pool) {
         this.pool = pool;
     }
@@ -31,9 +32,18 @@ export class TaskRepository {
     }
 
     public async deleteTask(id : number){
-         const queryResult = await this.pool.query(this.deleteQuery,[id]);
+         const queryResult = await this.pool.query<Task>(this.deleteQuery,[id]);
          console.log(queryResult);
+         return queryResult.rows[0];
     }
+
+    public async patchTaskDone(id : number, done:boolean){
+         console.log(done);
+         const queryResult = await this.pool.query<Task>(this.patchQuery,[done,id]);
+         return queryResult.rows[0];
+    }
+
+
 
 
 
